@@ -8,11 +8,18 @@ class MatchManager(ABC):
 
     def set_match(self, match):
         self.match = match
-        self.post_init()    # initialise whatever is specific to the match type
+     #   self.post_init()    # initialise whatever is specific to the match type
 
     def end_match(self):
-        self.match.active = False
+        self.match.status = False
 
+    def finalize_setup(self):
+        """When the last player has been registerd and the match is ready do some final initialisation
+        Note: I'm still not happy the way this works (has to do with darts_match as a generic domain object vers match
+        management here abstract and then implemented in concrete match classes)
+        :return:
+        """
+        self.post_init()
     @abstractmethod
     def post_init(self):
         """Primitive operation. You HAVE TO override me, I'm a placeholder."""
